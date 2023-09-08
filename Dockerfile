@@ -1,7 +1,5 @@
-
-FROM centos:latest
-RUN yum -y update
-RUN yum -y install httpd httpd-tools
-WORKDIR /var/www/html
+FROM ubuntu:latest
+RUN apt-get update -y
+RUN apt-get install apache2 -y
 EXPOSE 80
-CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
+CMD ["/usr/sbin/apache2","-D","FOREGROUND"]
