@@ -1,5 +1,5 @@
-FROM ubuntu:latest
-RUN apt-get update -y
-RUN apt-get install apache2 -y
+FROM centos:latest
+RUN yum update -y
+RUN yum install httpd -y
 EXPOSE 80
-CMD ["/usr/sbin/apache2","-D","FOREGROUND"]
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
