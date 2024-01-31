@@ -1,0 +1,20 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+   name: msdevops
+spec:
+   replicas: 2
+   selector:      # tells the controller which pods to watch/belong to
+    matchLabels:
+     app: msdevops
+   template:
+      metadata:
+        labels:
+          app: msdevops
+      spec:
+       containers:
+        - name: msdevops
+          image: 9347870632/myimg
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80
