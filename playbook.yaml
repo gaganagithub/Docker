@@ -1,12 +1,6 @@
 - hosts: all
   become: true
   tasks:
-    - name: Delete old deployment if it exists
-      shell: /usr/local/bin/kubectl delete -f /root/deployment.yaml --ignore-not-found
-
-    - name: Delete old service if it exists
-      shell: /usr/local/bin/kubectl delete -f /root/service.yaml --ignore-not-found
-
     - name: Create new deployment
       shell: /usr/local/bin/kubectl apply -f /root/deployment.yaml
       register: deployment_result
