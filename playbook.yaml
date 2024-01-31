@@ -1,11 +1,28 @@
 - hosts: all
   become: true
-  tasks: 
-     - name: delete old deployment
-       command: kubectl delete -f /home/ec2-user/deployment.yml
-     - name: delete old service
-       command: kubectl delete -f /home/ec2-user/service.yml
-     - name: create new deployment
-       command: kubectl apply -f /home/ec2-user/deployment.yml
-     - name: create new service
-       command: kubectl apply -f /home/ubuntu/service.yml
+  tasks:
+    - name: Delete old deployment if it exists
+      shell: /usr/local/bin/kubectl delete -f /root/deployment.yaml --ignore-not-found
+
+    - name: Delete old service if it exists
+      shell: /usr/local/bin/kubectl delete -f /root/service.yaml --ignore-not-found
+
+    - name: Create new deployment
+      shell: /usr/local/bin/kubectl apply -f /root/deployment.yaml
+      register: deployment_result
+      ignore_errors: yes  # Ignore errors to proceed even if the deployment fails
+
+    - name: Create new service
+      shell: /usr/local/bin/kubectl apply -f /root/service.yaml
+      register: service_result
+      ignore_errors: yes  # Ignore errors to proceed even if the service fails
+
+    # Display deployment and service results
+    - name: Display deployment result
+      debug:
+        var: deployment_result.stdout
+
+    - name: Display service result
+      debug:
+        var: service_result.stdout
+
