@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: 9347870632/devops-project
+          image: 9347870632/cicd-project
           ports:
             - containerPort: 80
